@@ -6,7 +6,7 @@ import UserTripCardItem from './components/UserTripCardItem';
 
 function MyTrips() {
     const navigation = useNavigation();
-    const [userTrips,setUserTrips]=useState([]);
+    const [userTrips, setUserTrips] = useState([]);
     useEffect(() => {
         GetUsertrips();
     }, [])
@@ -14,36 +14,36 @@ function MyTrips() {
      * 
      * @returns 
      */
-    
-    const GetUsertrips =async() => {
+
+    const GetUsertrips = async () => {
         const user = JSON.parse(localStorage.getItem('user'));
-        
+
         if (!user) {
             navigation('/');
             return;
         }
-        
+
         const q = query(collection(db, 'AITrips'), where('userEmail', '==', user?.email));
         const querySnapshot = await getDocs(q);
         setUserTrips([]);
         querySnapshot.forEach((doc) => {
             console.log(doc.id, " => ", doc.data());
-            setUserTrips(prevVal=>[...prevVal,doc.data()])
+            setUserTrips(prevVal => [...prevVal, doc.data()])
         });
     }
 
     return (
-        <div className='ml-40 sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-32 w-full'>
+        <div className='py-10 sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-20 w-full'>
             <h2 className='font-bold text-3xl'>My Trips</h2>
-            <div className='grid grid-cols-2 mt-10 md:grid-cols-3 gap-5'>
-                {userTrips?.length>0?userTrips.map((trip,index)=>(
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10'>
+                {userTrips?.length > 0 ? userTrips.map((trip, index) => (
                     <UserTripCardItem trip={trip} key={index} />
                 ))
-                :[1,2,3,4,5,6].map((item,index)=>(
-                    <div key={index} className='h-[250px] w-full bg-slate-200 animate-pulse rounded-xl'>
-                     </div>   
-                ))
-            }
+                    : [1, 2, 3, 4, 5, 6].map((item, index) => (
+                        <div key={index} className='h-[250px] w-full bg-slate-200 dark:bg-slate-800 animate-pulse rounded-xl'>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     )

@@ -27,7 +27,7 @@ function CreateTrip() {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const handleInputChange = (name, value) => {
     setFormdata((prev) => ({
       ...prev,
@@ -75,7 +75,7 @@ function CreateTrip() {
 
     });
     setLoading(false);
-    navigate('/view-trip/'+docId)
+    navigate('/view-trip/' + docId)
   }
 
   const OnGenerateTrip = async () => {
@@ -113,7 +113,7 @@ function CreateTrip() {
   }
 
   return (
-    <div className='ml-40 py-10 sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-20 w-full'>
+    <div className='py-10 sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-20 w-full'>
       <h2 className='font-bold text-3xl'>Tell us your travel preferences 🏕🌴</h2>
       <p className='mt-3 text-gray-500 text-xl'>
         Just provide some basic information, and our trip planner will generate a customized itinerary based on your preferences.
@@ -126,7 +126,13 @@ function CreateTrip() {
             apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
             selectProps={{
               value: place,
-              onChange: (v) => { setPlace(v); handleInputChange('location', v); }
+              onChange: (v) => { setPlace(v); handleInputChange('location', v); },
+              styles: {
+                control: (provided) => ({ ...provided, backgroundColor: '#fff', color: '#000' }),
+                option: (provided) => ({ ...provided, color: '#000', backgroundColor: '#fff' }),
+                singleValue: (provided) => ({ ...provided, color: '#000' }),
+                input: (provided) => ({ ...provided, color: '#000' }),
+              }
             }}
           />
         </div>
@@ -142,7 +148,7 @@ function CreateTrip() {
 
       <div>
         <h2 className='text-xl my-3 font-medium pt-8'>What is your Budget?</h2>
-        <div className='grid grid-cols-3 gap-5 mt-5'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-5 mt-5'>
           {SelectBudgetOptions.map((item, index) => (
             <div
               key={index}
@@ -158,7 +164,7 @@ function CreateTrip() {
 
       <div>
         <h2 className='text-xl my-3 font-medium pt-8'>Who are you traveling with?</h2>
-        <div className='grid grid-cols-3 gap-5 mt-5'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-5 mt-5'>
           {SelectTravelersList.map((item, index) => (
             <div
               key={index}
@@ -179,7 +185,7 @@ function CreateTrip() {
           {loading ?
             <AiOutlineLoading3Quarters className='h-7 w-7 animate-spin' /> : 'Generate Trip'
           }
-          </Button>
+        </Button>
       </div>
 
       {/* Login Dialog */}
@@ -198,7 +204,7 @@ function CreateTrip() {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-      
+
     </div>
   );
 }
