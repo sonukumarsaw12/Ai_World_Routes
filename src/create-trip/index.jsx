@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import GooglePlacesAutocomplete from 'react-google-places-autocomplete'
+import { GeoapifyGeocoderAutocomplete, GeoapifyContext } from '@geoapify/react-geocoder-autocomplete'
+import '@geoapify/geocoder-autocomplete/styles/minimal.css'
 import { Input } from "@/components/ui/input";
 import { SelectBudgetOptions, SelectTravelersList } from '@/constants/options';
 import { Button } from '@/components/ui/button';
@@ -122,19 +123,15 @@ function CreateTrip() {
       <div className='mt-20 flex flex-col gap-10'>
         <div>
           <h2 className='text-xl my-3 font-medium'>What is your destination of choice?</h2>
-          <GooglePlacesAutocomplete
-            apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
-            selectProps={{
-              value: place,
-              onChange: (v) => { setPlace(v); handleInputChange('location', v); },
-              styles: {
-                control: (provided) => ({ ...provided, backgroundColor: '#fff', color: '#000' }),
-                option: (provided) => ({ ...provided, color: '#000', backgroundColor: '#fff' }),
-                singleValue: (provided) => ({ ...provided, color: '#000' }),
-                input: (provided) => ({ ...provided, color: '#000' }),
-              }
-            }}
-          />
+          <GeoapifyContext apiKey={import.meta.env.VITE_GEOAPIFY_API_KEY}>
+            <GeoapifyGeocoderAutocomplete
+              placeholder="Search Destination"
+              placeSelect={(value) => {
+                setPlace(value);
+                handleInputChange('location', { label: value?.properties?.formatted, value: value });
+              }}
+            />
+          </GeoapifyContext>
         </div>
         <div>
           <h2 className='text-xl my-3 font-medium'>How many days are you planning your trip?</h2>

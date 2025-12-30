@@ -76,3 +76,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+.geoapify-autocomplete-input {
+  background-color: transparent !important;
+  @apply bg-background text-foreground border-input rounded-md px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.geoapify-autocomplete-items {
+  @apply border-input border rounded-md shadow-md;
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.geoapify-autocomplete-item {
+  @apply p-2 cursor-pointer;
+}
+
+.geoapify-autocomplete-item:hover {
+  background-color: hsl(var(--muted)) !important;
+}
