@@ -4,7 +4,7 @@ const apiKey = import.meta.env.VITE_GOOGLE_GEMINI_AI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-    model: "models/gemini-3.1-flash-lite-preview",
+    model: "models/gemini-2.5-flash",
     systemInstruction: "You are a professional travel assistant. Provide a concise, highly readable travel plan in JSON format. Return ONLY JSON.\n",
 });
 
@@ -51,7 +51,7 @@ export const getDetailedAIInfo = async (query) => {
 
   try {
       const detailModel = genAI.getGenerativeModel({
-          model: "models/gemini-3.1-flash-lite-preview", 
+          model: "models/gemini-2.5-flash", 
           systemInstruction: "You are a professional travel assistant. Provide concise, expert-level info in JSON. Fields: 'description' (max 2 sentences), 'rules' (max 4), 'timing' (open/close/note), 'detailedPricing' (MUST BE IN THE DESTINATION'S LOCAL CURRENCY), 'amenities', 'nearbyPlaces'. Return ONLY JSON.\n",
       });
 
